@@ -1,22 +1,14 @@
 class Solution {
-    public boolean wordPattern(String pattern, String s) {
-        String[] str = s.split(" ");
-        if(pattern.length() != str.length) return false;        
-        HashMap<Character, String> map = new HashMap<Character, String>();
-        for(int i=0; i<pattern.length(); i++){
-            char ch = pattern.charAt(i);
-            if(map.containsKey(ch)){
-                // System.out.println("heelo");
-                
-                System.out.println(map.get(ch) + " " + str[i]);
-                if(!map.get(ch).equals(str[i])){
-                  return false;  
-                } 
-            }else{
-                if(map.containsValue(str[i])) return false;
-                map.put(ch, str[i]);
+    public boolean wordPattern(String pattern, String str) {
+        String[] words = str.split(" ");
+        if (words.length != pattern.length())
+            return false;
+        Map index = new HashMap();
+        for (Integer i=0; i<words.length; ++i){
+            if (index.put(pattern.charAt(i), i) != index.put(words[i], i)){
+                // System.out.println(index.get(pattern.charAt(i), i) + " " + index.get(words[i], i));
+                return false;
             }
-           
         }
         return true;
     }
