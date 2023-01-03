@@ -1,28 +1,32 @@
 class Solution {
-    public int countSubstrings(String s) {
-        if(s.length() == 1) return 1;
-        boolean [][]dp = new boolean[s.length()][s.length()];
+    public boolean palindrome(String subs){
+          int li = 0;
+          int ri = subs.length()-1;
+          while(li<=ri){
+              char f = subs.charAt(li);
+              char l = subs.charAt(ri);
+              if(f != l){
+                  return false;
+              }
+              
+              li++;
+              ri--;
+          }
+          return true;
+      }
+    public int countSubstrings(String str) {
+    //write your code here
         int count = 0;
-        // Gap == Diagonal
-        for(int gap = 0; gap<s.length(); gap++){
-            for(int i=0, j=gap; j<dp.length; i++, j++){
-                if(gap==0) dp[i][j] = true;
+        for(int i=0;i<str.length(); i++){
+            for(int j = i+1; j<=str.length(); j++){
                 
-                else if(gap==1){
-                    if(s.charAt(i) == s.charAt(j)) dp[i][j] = true;
-                    else dp[i][j]=false;
-                } else{
-                    if(s.charAt(i)==s.charAt(j) && dp[i+1][j-1] == true){
-                        dp[i][j] = true;
-                    }
-                    else{
-                        dp[i][j] = false;
-                    }
+                if(palindrome(str.substring(i,j))){
+                    count++;
                 }
-                if(dp[i][j]) count++;
                 
             }
         }
+        
         return count;
-    }
+      }
 }
