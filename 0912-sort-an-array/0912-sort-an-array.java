@@ -9,9 +9,8 @@ class Solution {
     int[] res1 = mergeSort(arr, lo, mid);
     int[] res2 = mergeSort(arr, mid+1, hi);
     int[] res = mergeTwoSortedArrays(res1, res2);
-
-    return res;
-  }
+        return res;
+    }
 
   //used for merging two sorted arrays
   public static int[] mergeTwoSortedArrays(int[] a, int[] b){
