@@ -26,31 +26,26 @@ class Solution {
         return handler;       
     }
     
-    
-    public ListNode midOfList(ListNode head){
-        if(head == null || head.next == null) return head;
-        ListNode f = head;
-        ListNode s = head;
-        while (f.next != null && f.next.next != null) {
-            f = f.next.next;
-            s = s.next;
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+        
+        // step 1. cut the list to two halves
+        ListNode prev = null, slow = head, fast = head;
+
+        while (fast != null && fast.next != null) {
+          prev = slow;
+          slow = slow.next;
+          fast = fast.next.next;
         }
 
-        return s;
-    }
-    
-    
-    public ListNode sortList(ListNode head) {
-        
-        if(head == null || head.next == null){
-            return head;
-        }
-        
-        ListNode mid = midOfList(head);
-        ListNode nHead = mid.next;
-        mid.next = null;
+        prev.next = null;
+
+        // step 2. sort each half
         ListNode l1 = sortList(head);
-        ListNode l2 = sortList(nHead);
+        ListNode l2 = sortList(slow);
+
+        // step 3. merge l1 and l2
         return mergeTwoLists(l1, l2);
     }
 }
