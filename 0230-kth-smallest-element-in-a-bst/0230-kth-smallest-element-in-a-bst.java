@@ -14,28 +14,23 @@
  * }
  */
 class Solution {
-    int ceil = Integer.MAX_VALUE;
-    int floor = Integer.MIN_VALUE;
+    int res = 0;
+    int cnt = 0;
     public int kthSmallest(TreeNode root, int k) {
-        int factor =  Integer.MIN_VALUE;
-        for(int i=0; i<k; i++){
-            ceilAndFloor(root, factor);
-            factor = ceil;
-            ceil =  Integer.MAX_VALUE;
-        }
-        return factor;
+        cnt = k;
+        helper(root);
+        return res;
     }
     
-    public void ceilAndFloor(TreeNode root, int factor){
-        if(root.val > factor){
-            if(root.val < ceil) ceil = root.val;
+    private void helper(TreeNode root){
+        if(root.left != null)
+            helper(root.left);
+        cnt--;
+        if(cnt == 0){
+            res = root.val;
+            return;
         }
-        if(root.val < factor){
-            if(root.val > floor) floor = root.val;
-        }
-        
-        if(root.left != null) ceilAndFloor(root.left, factor);
-        if(root.right != null) ceilAndFloor(root.right, factor);
-
+        if(root.right != null)
+            helper(root.right);
     }
 }
