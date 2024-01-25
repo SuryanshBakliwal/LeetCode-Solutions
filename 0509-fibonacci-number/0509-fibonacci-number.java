@@ -1,16 +1,19 @@
 class Solution {
     
-    public int fibHelper(int n,int[] dp){
-        if(n == 0) return 0;
-        if(n == 1) return 1;
-        if(dp[n] != 0) return dp[n];
+    public int fibmemo(int n, int[] qb){
+        if(n==1 || n==0) return n;
         
-        dp[n] = fibHelper(n-1, dp) + fibHelper(n-2, dp);
-        return dp[n];
+        if(qb[n] != 0) return qb[n];
+        
+        int fib1 = fibmemo(n-1, qb);
+        int fib2 = fibmemo(n-2, qb);
+        qb[n] = fib1+fib2;
+        
+        return fib1+fib2;
     }
     
     public int fib(int n) {
-        int arr[] = new int[n+2]; 
-        return fibHelper(n, arr);
+        int qb[] = new int[n+1];
+        return fibmemo(n, qb);
     }
 }
