@@ -1,17 +1,13 @@
 class Solution {
-    public int climbStairs(int n) {
-        int dp[] = new int[ n + 1 ];
-        return climbStairs(n, dp);
+    int help(int n, int[] qb){
+        if(n==0 || n==1 || n==2) return n;
+        if(qb[n] != 0) return qb[n];
+        int res = help(n-1, qb) + help(n-2, qb);
+        qb[n] = res;
+        return res;
     }
-    public int climbStairs(int n, int dp[]) {
-        if(n == 0) return 0;
-        if(n == 1) return 1;
-        if(n == 2) return 2;
-        if(dp[n] != 0) return dp[n];
-        int fib1 = climbStairs(n-1, dp);
-        int fib2 = climbStairs(n-2, dp);
-
-        dp[n] = fib1 + fib2;
-        return fib1 + fib2;
+    public int climbStairs(int n) {
+        int qb[] = new int[n+1];
+        return help(n, qb);
     }
 }
