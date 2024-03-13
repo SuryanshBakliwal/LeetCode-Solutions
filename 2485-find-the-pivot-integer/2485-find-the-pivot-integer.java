@@ -1,10 +1,19 @@
 class Solution {
     public int pivotInteger(int n) {
-        for(int x=1; x<=n; x++){
-            int sumOfFirstX = (x*(x+1)/2);
-            int sumOfXtoN = ((n*(n+1)/2) + x - sumOfFirstX);
-            System.out.println(sumOfFirstX + " " + sumOfXtoN);
-            if(sumOfFirstX == sumOfXtoN) return x;
+        if(n==1) return 1;
+        int l=1, r=n;
+        int ls=1, rs=n;
+        while(l<r){
+            if(ls == rs && l+1 == r-1){
+                return l+1;
+            }else if(ls>rs ){
+                r--;
+                rs += r;
+            }
+            else{
+                l++;
+                ls += l;
+            }
         }
         return -1;
     }
