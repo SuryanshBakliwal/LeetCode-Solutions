@@ -3,16 +3,11 @@ class Solution {
         int ans=0, j=0, product=1;
         for(int i=0; i<nums.length; i++){
             product *= nums[i];
-            if(product < k){
-                ans += (i-j) + 1;
+            while(product >= k && j <= i){
+                product /= nums[j];
+                j++;
             }
-            else{
-                while(product >= k && j <= i){
-                    product /= nums[j];
-                    j++;
-                }
-                ans += (i-j)+1;
-            }
+            ans += (i-j)+1;
             System.out.println(product + " " + i + " " + j +  " " + ans);
         }
         return ans;
