@@ -7,11 +7,8 @@ class Solution {
             }
         }
         if(i == s.length()) return s;
-        StringBuilder sb = new StringBuilder(s.substring(0, i+1));
-        sb.reverse();
-        for(int j=i+1; j<s.length(); j++){
-            sb.append(s.charAt(j));
-        }
+        StringBuilder sb = new StringBuilder(s.substring(0, i+1)).reverse();
+        sb.append(s.substring(i+1, s.length()));
         return sb.toString();
     }
 }
