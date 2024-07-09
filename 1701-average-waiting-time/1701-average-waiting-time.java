@@ -1,17 +1,10 @@
 class Solution {
-    public double averageWaitingTime(int[][] cust) {
-        double waitingTime = 0, currTime = 0;
-        for(int i=0; i<cust.length; i++){
-            if(i==0){
-                currTime = cust[i][0] + cust[i][1];
-                waitingTime = currTime - cust[i][0];
-            }
-            else{
-                if(cust[i][0] > currTime) currTime = cust[i][0] + cust[i][1];
-                else currTime += cust[i][1];
-                waitingTime += currTime - cust[i][0];
-            }
+    public double averageWaitingTime(int[][] A) {
+        double wait = 0, cur = 0;
+        for (int[] a: A) {
+            cur = Math.max(cur, 1.0 * a[0]) + a[1];
+            wait += cur - a[0];
         }
-        return waitingTime/cust.length;
+        return 1.0 * wait / A.length;
     }
 }
