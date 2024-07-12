@@ -1,20 +1,24 @@
 class Solution {
     public int maximumGain(String s, int x, int y) {
-        Stack<Character> stack = new Stack<>(), stack2 = new Stack<>();
-	int result = 0, max=Math.max(x,y), min =Math.min(x,y);
-	char first= (x>y)?'a':'b', second=(x>y)?'b':'a';
-	for(char c: s.toCharArray()) 
-		if(!stack.isEmpty() && stack.peek() == first && c == second) {
-			stack.pop(); 
-			result +=max;
-		} else stack.push(c);
-	while(!stack.isEmpty()) {
-		char c = stack.pop();
-		if(!stack2.isEmpty() && stack2.peek() == first && c == second) {
-			stack2.pop(); 
-			result +=min;
-		} else stack2.push(c);
-	}
-	return result;
+        String s1 = "ab", s2 = "ba";
+        StringBuilder sb = new StringBuilder(s);
+        if(x < y){
+            String temp1 = s1; s1 = s2; s2 = temp1;
+            int temp2 = x; x = y; y = temp2;
+        }
+        
+        return solve(sb, s1, x) + solve(sb, s2, y);
+    }
+    int solve(StringBuilder sb, String maq, int p){
+        int tp=0, n=sb.length(), wIdx = 0;
+        for(int r=0; r<n; r++){
+            sb.setCharAt(wIdx++, sb.charAt(r));
+            if(wIdx > 1 && sb.charAt(wIdx-1) == maq.charAt(1) && sb.charAt(wIdx-2) == maq.charAt(0)){
+                wIdx -= 2;
+                tp += p;
+            }
+        }
+        sb.delete(wIdx, n);
+        return tp;
     }
 }
