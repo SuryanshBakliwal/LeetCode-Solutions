@@ -13,7 +13,7 @@ class Solution {
             }
             boolean flag = true;
             for(int k=0; k<m; k++){
-                if(num < M[k][idx]) flag = false;
+                if(num < M[k][idx]) {flag = false; break;};
             }
             if(flag) res.add(num);
         }
