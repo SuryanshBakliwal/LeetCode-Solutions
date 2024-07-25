@@ -1,47 +1,40 @@
 class Solution {
-    public static int[] mergeSort(int[] arr, int lo, int hi) {
-    if(lo==hi){
-      int ba[] = new int[1];
-      ba[0] = arr[lo];
-      return ba;
+    
+    public int[] mergeSort(int[] nums, int i, int j){
+        if(i==j){
+            int arr[] = new int[1];
+            arr[0] = nums[i];
+            return arr;
+        }
+        int mid = (i+j)/2;
+        int arr1[] = mergeSort(nums, i, mid);
+        int arr2[] = mergeSort(nums, mid+1, j);
+        return mergeTwoArray(arr1, arr2);
+        // return res;
     }
-    int mid = (lo + hi)/2;
-    int[] res1 = mergeSort(arr, lo, mid);
-    int[] res2 = mergeSort(arr, mid+1, hi);
-    int[] res = mergeTwoSortedArrays(res1, res2);
+    
+    public int[] mergeTwoArray(int[] arr1, int[] arr2){
+        int i=0, j=0, k=0;
+        int res[] = new int[arr1.length + arr2.length];
+        while(i<arr1.length && j<arr2.length){
+            if(arr1[i] <= arr2[j]){
+                res[k++] = arr1[i++];
+            }else{
+                res[k++] = arr2[j++];
+            }
+        }
+        while(i < arr1.length){
+            res[k++] = arr1[i++];
+        }
+        while(j < arr2.length){
+            res[k++] = arr2[j++];
+        }
         return res;
     }
-
-  //used for merging two sorted arrays
-  public static int[] mergeTwoSortedArrays(int[] a, int[] b){
-    int i = 0, j =0, k = 0;
-    int[] ans = new int[a.length + b.length];
-    while(i < a.length && j < b.length){
-        if(a[i] <= b[j]){
-          ans[k] = a[i];
-          i++;
-          k++;
-        }else{
-          ans[k] = b[j];
-          j++;
-          k++;
-        }
-    }
-    while(i < a.length){
-      ans[k] = a[i];
-      k++;
-      i++;
-    }
-    while(j < b.length){
-      ans[k] = b[j];
-      k++;
-      j++;
-    } 
-    return ans;
-  }
+    
+    
+    
     public int[] sortArray(int[] nums) {
-        nums = mergeSort(nums, 0, nums.length-1);
-        return nums;
-  }
-
+        return mergeSort(nums, 0, nums.length-1);
+    }
 }
