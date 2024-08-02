@@ -2,8 +2,10 @@ class Solution {
     public int countSeniors(String[] details) {
         int count=0;
         for(String detail : details){
-            int age = Integer.valueOf(detail.substring(11, 13));
-            if(age > 60) count++;
+            char tens = detail.charAt(11);
+            char ones = detail.charAt(12);
+
+            if(tens > '6' || (tens >= '6' && ones > '0')) count++;
         }
         return count;
     }
