@@ -1,14 +1,17 @@
 class Solution {
     public int maxSubArray(int[] nums) {
-        int currSum = 0, bestSum = Integer.MIN_VALUE;
-        for(int i=0; i<nums.length; i++){
-            if(nums[i] < ( nums[i] + currSum )){
-                currSum += nums[i];
-            }else{
-                currSum = nums[i];
-            }
-            bestSum = Math.max(currSum, bestSum);
+        //Brute Force : TC = O(n^2) || SC = o(1)
+        // Kadane's Algo : TC = O(n) || SC = o(1)
+        
+        int max_sum = nums[0];
+        int cur_sum = 0;
+        
+        for(int num : nums){
+            cur_sum = Math.max(cur_sum, 0);
+            cur_sum += num;
+            max_sum = Math.max(max_sum, cur_sum);
         }
-        return bestSum;
+        
+        return max_sum;
     }
 }
